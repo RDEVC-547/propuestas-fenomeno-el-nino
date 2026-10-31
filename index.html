@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Propuestas frente al Fenómeno de El Niño</title>
+<style>
+  :root {
+    --azul: #0a2a57;
+    --azul-2: #1456a8;
+    --rojo: #e11d2e;
+    --texto: #15202e;
+    --gris: #5f6b7a;
+    --linea: #dfe5ee;
+    --fondo: #f3f6fa;
+    --blanco: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: Arial, "Segoe UI", system-ui, Roboto, sans-serif;
+    overflow-x: hidden;
+    line-height: 1.5;
+  }
+  img { max-width: 100%; }
+
+  /* ---------- Cabecera ---------- */
+  .hero {
+    background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+    color: #fff;
+    padding: 64px max(20px, env(safe-area-inset-right, 0px)) 70px max(20px, env(safe-area-inset-left, 0px));
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-in { max-width: 1100px; margin: 0 auto; position: relative; }
+  .kicker {
+    display: inline-block;
+    background: var(--rojo);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 4px;
+  }
+  .hero h1 {
+    margin: 18px 0 12px;
+    font-size: clamp(28px, 5vw, 48px);
+    line-height: 1.12;
+    font-weight: 800;
+    max-width: 760px;
+    text-wrap: balance;
+  }
+  .hero p { margin: 0; max-width: 620px; font-size: clamp(15px, 2.2vw, 18px); opacity: .92; }
+  .hero-bar { width: 90px; height: 6px; background: var(--rojo); margin: 22px 0 0; border-radius: 3px; }
+
+  /* ---------- Contenido ---------- */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px max(16px, env(safe-area-inset-right, 0px)) 56px max(16px, env(safe-area-inset-left, 0px));
+  }
+  h2 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    color: var(--azul);
+  }
+  .sub { margin: 0 0 22px; color: var(--gris); font-size: 15px; }
+
+  /* ---------- Descargas ---------- */
+  .descargas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 52px;
+  }
+  .dl {
+    background: var(--blanco);
+    border: 1px solid var(--linea);
+    border-radius: 14px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 6px 18px rgba(10,42,87,.06);
+    min-width: 0;
+  }
+  .dl-tag {
+    align-self: flex-start;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  .t-pdf  { background: var(--rojo); }
+  .t-ppt  { background: #d9481a; }
+  .t-word { background: var(--azul-2); }
+  .dl h3 { margin: 0; font-size: 18px; color: var(--azul); }
+  .dl p { margin: 0; font-size: 14px; color: var(--gris); flex: 1; }
+  .btn-dl {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--azul);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    transition: background .15s;
+    min-height: 44px;
+  }
+  .btn-dl:hover { background: var(--azul-2); }
+  .btn-dl:focus-visible, .card:focus-visible, .visor button:focus-visible { outline: 3px solid #ffc83d; outline-offset: 2px; }
+
+  /* ---------- Galería ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: var(--blanco);
+    border: 1px solid var(--linea);
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: zoom-in;
+    transition: transform .2s ease, box-shadow .2s ease;
+    min-width: 0;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(10,42,87,.14); }
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--azul);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .4px;
+  }
+  .card-head span:last-child { opacity: .8; font-weight: 400; }
+  .card img { display: block; width: 100%; height: auto; padding: 8px; }
+
+  footer {
+    background: var(--azul);
+    color: #fff;
+    text-align: center;
+    padding: 22px max(16px, env(safe-area-inset-right, 0px)) 22px max(16px, env(safe-area-inset-left, 0px));
+    font-size: 13px;
+    opacity: .95;
+  }
+
+  /* ---------- Visor ---------- */
+  .visor {
+    position: fixed;
+    inset: 0;
+    background: rgba(5,15,35,.94);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 100;
+  }
+  .visor.abierto { display: flex; }
+  .visor img {
+    max-width: 100%;
+    max-height: 88vh;
+    border-radius: 8px;
+    background: #fff;
+  }
+  .visor button {
+    position: absolute;
+    background: rgba(255,255,255,.16);
+    color: #fff;
+    border: 0;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    font-size: 22px;
+    cursor: pointer;
+  }
+  .visor button:hover { background: rgba(255,255,255,.3); }
+  .visor .cerrar { top: 14px; right: 14px; }
+  .visor .ant { left: 14px; top: 50%; transform: translateY(-50%); }
+  .visor .sig { right: 14px; top: 50%; transform: translateY(-50%); }
+  .visor .pie { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; color: #fff; font-size: 14px; opacity: .85; }
+
+  /* ---------- Teléfonos ---------- */
+  @media (max-width: 760px) {
+    .descargas { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .hero { padding-top: 44px; padding-bottom: 50px; }
+    main { padding-top: 28px; }
+    .visor .ant, .visor .sig { top: auto; bottom: 56px; transform: none; }
+    .visor .ant { left: 12px; }
+    .visor .sig { right: 12px; }
+    .visor { padding: 10px; }
+  }
+
+  /* ---------- Impresión (si alguien imprime la página) ---------- */
+  @media print {
+    .visor, .descargas { display: none !important; }
+    .card { box-shadow: none; break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <span class="kicker">Propuesta técnica</span>
+    <h1>Propuestas frente al Fenómeno de El Niño</h1>
+    <p>Soluciones técnicas de prevención y mitigación, con los diagramas y planos de cada propuesta.</p>
+    <div class="hero-bar"></div>
+  </div>
+</header>
+
+<main>
+  <h2>Descargar la propuesta</h2>
+  <p class="sub">Elige el formato que necesites. Todos contienen las mismas 10 láminas.</p>
+
+  <section class="descargas" aria-label="Descargas">
+    <article class="dl">
+      <span class="dl-tag t-pdf">PDF</span>
+      <h3>Documento para imprimir</h3>
+      <p>Portada y 10 láminas en A4 horizontal, una por página. Ideal para imprimir o enviar.</p>
+      <a class="btn-dl" href="descargas/Propuestas_Fenomeno_El_Nino.pdf" download>Descargar PDF</a>
+    </article>
+    <article class="dl">
+      <span class="dl-tag t-ppt">POWERPOINT</span>
+      <h3>Presentación editable</h3>
+      <p>Diapositivas en formato 16:9 con portada y una lámina por diapositiva. Puedes editarla en PowerPoint.</p>
+      <a class="btn-dl" href="descargas/Propuestas_Fenomeno_El_Nino.pptx" download>Descargar PowerPoint</a>
+    </article>
+    <article class="dl">
+      <span class="dl-tag t-word">WORD</span>
+      <h3>Documento editable</h3>
+      <p>Portada, encabezado, número de página y las 10 láminas. Puedes modificar el texto en Word.</p>
+      <a class="btn-dl" href="descargas/Propuestas_Fenomeno_El_Nino.docx" download>Descargar Word</a>
+    </article>
+  </section>
+
+  <h2>Vista previa de las láminas</h2>
+  <p class="sub">Toca una lámina para verla completa.</p>
+
+  <div class="grid" id="galeria">
+    <article class="card" tabindex="0" data-i="0"><div class="card-head"><span>Lámina 1 de 10</span><span>Ver</span></div><img src="imagenes/lamina_01.jpg" alt="Lámina 1 de la propuesta" loading="lazy"></article>
+    <article class="card" tabindex="0" data-i="1"><div class="card-head"><span>Lámina 2 de 10</span><span>Ver</span></div><img src="imagenes/lamina_02.jpg" alt="Lámina 2 de la propuesta" loading="lazy"></article>
+    <article class="card" tabindex="0" data-i="2"><div class="card-head"><span>Lámina 3 de 10</span><span>Ver</span></div><img src="imagenes/lamina_03.jpg" alt="Lámina 3 de la propuesta" loading="lazy"></article>
+    <article class="card" tabindex="0" data-i="3"><div class="card-head"><span>Lámina 4 de 10</span><span>Ver</span></div><img src="imagenes/lamina_04.jpg" alt="Lámina 4 de la propuesta" loading="lazy"></article>
+    <article class="card" tabindex="0" data-i="4"><div class="card-head"><span>Lámina 5 de 10</span><span>Ver</span></div><img src="imagenes/lamina_05.jpg" alt="Lámina 5 de la propuesta" loading="lazy"></article>
+    <article class="card" tabindex="0" data-i="5"><div class="card-head"><span>Lámina 6 de 10</span><span>Ver</span></div><img src="imagenes/lamina_06.jpg" alt="Lámina 6 de la propuesta" loading="lazy"></article>
+    <article class="card" tabindex="0" data-i="6"><div class="card-head"><span>Lámina 7 de 10</span><span>Ver</span></div><img src="imagenes/lamina_07.jpg" alt="Lámina 7 de la propuesta" loading="lazy"></article>
+    <article class="card" tabindex="0" data-i="7"><div class="card-head"><span>Lámina 8 de 10</span><span>Ver</span></div><img src="imagenes/lamina_08.jpg" alt="Lámina 8 de la propuesta" loading="lazy"></article>
+    <article class="card" tabindex="0" data-i="8"><div class="card-head"><span>Lámina 9 de 10</span><span>Ver</span></div><img src="imagenes/lamina_09.jpg" alt="Lámina 9 de la propuesta" loading="lazy"></article>
+    <article class="card" tabindex="0" data-i="9"><div class="card-head"><span>Lámina 10 de 10</span><span>Ver</span></div><img src="imagenes/lamina_10.jpg" alt="Lámina 10 de la propuesta" loading="lazy"></article>
+  </div>
+</main>
+
+<footer>Propuestas frente al Fenómeno de El Niño · Soluciones técnicas de prevención y mitigación</footer>
+
+<div class="visor" id="visor" role="dialog" aria-modal="true" aria-label="Lámina ampliada">
+  <button class="cerrar" id="vCerrar" type="button" aria-label="Cerrar">&times;</button>
+  <button class="ant" id="vAnt" type="button" aria-label="Anterior">&#8249;</button>
+  <img id="vImg" alt="">
+  <button class="sig" id="vSig" type="button" aria-label="Siguiente">&#8250;</button>
+  <div class="pie" id="vPie"></div>
+</div>
+
+<script>
+(function () {
+  var imgs = Array.prototype.slice.call(document.querySelectorAll('#galeria img'));
+  var total = imgs.length;
+  var visor = document.getElementById('visor');
+  var vImg = document.getElementById('vImg');
+  var vPie = document.getElementById('vPie');
+  var actual = 0;
+
+  function mostrar(i) {
+    actual = (i + total) % total;
+    vImg.src = imgs[actual].src;
+    vImg.alt = imgs[actual].alt;
+    vPie.textContent = 'Lámina ' + (actual + 1) + ' de ' + total + '  ·  ← → para cambiar, Esc para cerrar';
+  }
+  function abrir(i) { mostrar(i); visor.classList.add('abierto'); document.getElementById('vCerrar').focus(); }
+  function cerrar() { visor.classList.remove('abierto'); }
+
+  document.querySelectorAll('.card').forEach(function (c) {
+    c.addEventListener('click', function () { abrir(parseInt(c.getAttribute('data-i'), 10)); });
+    c.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrir(parseInt(c.getAttribute('data-i'), 10)); }
+    });
+  });
+  document.getElementById('vCerrar').addEventListener('click', cerrar);
+  document.getElementById('vAnt').addEventListener('click', function (e) { e.stopPropagation(); mostrar(actual - 1); });
+  document.getElementById('vSig').addEventListener('click', function (e) { e.stopPropagation(); mostrar(actual + 1); });
+  visor.addEventListener('click', function (e) { if (e.target === visor) cerrar(); });
+  document.addEventListener('keydown', function (e) {
+    if (!visor.classList.contains('abierto')) return;
+    if (e.key === 'Escape') cerrar();
+    if (e.key === 'ArrowRight') mostrar(actual + 1);
+    if (e.key === 'ArrowLeft') mostrar(actual - 1);
+  });
+})();
+</script>
+
+</body>
+</html>
